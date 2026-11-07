@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { agents } from "../lib/agents";
 type Run = {id:string;command:string;summary:string|null;status:string;created_at:string};
 const card: React.CSSProperties = {background:"#fffefa",border:"1px solid #dedfd7",padding:20,borderRadius:16};
 export default function Home(){
  const [email,setEmail]=useState(""),[password,setPassword]=useState(""),[userId,setUserId]=useState(""),[selected,setSelected]=useState("astra"),[command,setCommand]=useState(""),[result,setResult]=useState(""),[runs,setRuns]=useState<Run[]>([]),[busy,setBusy]=useState(false);
- const db=typeof window!=="undefined" && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY):null;
+ const db=useMemo(()=>process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY):null,[]);
  async function refresh(){if(!db)return;const {data}=await db.from("runs").select("id,command,summary,status,created_at").order("created_at",{ascending:false}).limit(20);setRuns(data||[])}
  useEffect(()=>{if(!db)return;db.auth.getUser().then(({data})=>{setUserId(data.user?.id||"");if(data.user)refresh()})},[]);
  async function signIn(){if(!db)return;setResult("Signing in...");const {data,error}=await db.auth.signInWithPassword({email,password});if(error){setResult(error.message);return}setUserId(data.user?.id||"");setResult("Signed in");refresh()}
