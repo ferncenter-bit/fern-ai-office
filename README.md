@@ -1,9 +1,24 @@
-# FERN AI OFFICE — Vercel Static Preview
+# FERN AI OFFICE
 
-This repository is a **simulated, static 2.5D preview**, not connected to real OpenAI or Supabase. Tasks are stored only in the browser's localStorage. Do not enter confidential information.
+Luxury Muji AI Office — browser-based **2.5D demo preview**.
 
-## Deploy on Vercel
-Import `ferncenter-bit/ferncenter-ai-office` from Vercel → Add New → Project, choose Framework Preset **Other**, Root Directory `./`, and deploy without environment variables.
+## Current state
+- Interactive office diagram with seven selectable placeholder agents
+- CEO command input, local simulated task queue, approval/revise/reject controls
+- **No real agent execution**, no OpenAI API connection, no Supabase database, no authentication, and no semi-realistic 3D characters
+- Demonstration task data is stored in the browser only
 
-## Next milestone
-Build the server-side multi-agent MVP with authentication, durable Supabase storage, and server-only OpenAI API keys. The static demo does not support those features.
+## Deployment to Vercel
+1. In Vercel select **Add New → Project**.
+2. Import GitHub repository `ferncenter-bit/fern-ai-office`.
+3. Set Framework Preset to **Other** and Root Directory to `./`.
+4. Deploy. There are no environment variables for this static prototype.
+
+**Do not add API keys to the code, and do not enter sensitive company data into the public demo.**
+
+## Next iteration
+- Next.js interface and interactive React Three Fiber office
+- Semi-realistic licensed character assets
+- Supabase persistence and proper authentication
+- OpenAI multi-agent orchestration on the server
+- Audited human approval before any external action
